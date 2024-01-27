@@ -1,0 +1,21 @@
+HTTP/1.0 200 OK
+Content-Type:text/html; charset=utf-8
+
+<body>
+<h1>Hive ELO</h1>
+
+<h2>Register match</h2>
+<form method="POST">
+	<p>Winner <input type='text' label="winner" name='winner' maxlength="10" minlength="3" pattern="[a-z]+"> </p>
+	<p>Loser <input type='text' label="loser" name='loser' maxlength="10" minlength="3" pattern="[a-z]+"> </p>
+	<p>Draw <input type='checkbox' name='draw'> </p>
+	<input label='submit' value='submit' type='submit'>
+</form>
+
+<h2>Ratings</h2>
+%RATINGS_TABLE%
+
+<h2>Last 10 matches</h2>
+<p>Current number of matches: %N_MATCHES% </p>
+%MATCH_TABLE%
+</body>
