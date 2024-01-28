@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 // You must free the result if result is non-NULL.
@@ -10,6 +11,9 @@ char *str_replace(char *orig, char *rep, char *with) {
     int len_with; // length of with (the string to replace rep with)
     int len_front; // distance between rep and end of last rep
     int count;    // number of replacements
+    char * orig_to_free;
+
+    orig_to_free = orig;
 
     // sanity checks and initialization
     if (!orig || !rep)
@@ -37,13 +41,15 @@ char *str_replace(char *orig, char *rep, char *with) {
     //    tmp points to the end of the result string
     //    ins points to the next occurrence of rep in orig
     //    orig points to the remainder of orig after "end of rep"
-    while (count--) {
-        ins = strstr(orig, rep);
+    //while (count--) {
+    while(ins=strstr(orig,rep)) {
+        //ins = strstr(orig, rep);
         len_front = ins - orig;
-        tmp = strncpy(tmp, orig, len_front) + len_front;
-        tmp = strcpy(tmp, with) + len_with;
+        tmp = strncpy(tmp, orig, len_front) + len_front; // not null-terminated
+        tmp = strcpy(tmp, with) + len_with; // also not null-terminated
         orig += len_front + len_rep; // move to next "end of rep"
     }
-    strcpy(tmp, orig);
+    strcpy(tmp, orig); // copy remainder, including null terminator
+    free(orig_to_free);
     return result;
 }
